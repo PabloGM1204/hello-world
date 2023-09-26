@@ -1,0 +1,16 @@
+<ion-card id="carta" routerLink="/welcome">
+  <ion-item>
+    <ion-avatar>
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <ion-label id="nomTitlt">{{usuario?.nombre}} {{usuario?.apellidos | primetaLetraMayusc}}</ion-label>
+  </ion-item>
+  
+
+  <ion-card-title id="title">Nombre</ion-card-title>
+  <ion-card-content id="info">{{usuario?.nombre}}</ion-card-content>
+  <ion-card-title id="title">Apellidos</ion-card-title>
+  <ion-card-content id="info">{{usuario?.apellidos}}</ion-card-content>
+  <ion-card-title id="title">Edad</ion-card-title>
+  <ion-card-content id="info">{{usuario?.edad}} años</ion-card-content>
+</ion-card>
