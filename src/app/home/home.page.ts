@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  // Lista de usuarios a poner en las tarjetas
   usuarios = [
     {
       nombre: "Pablo", apellidos: "García Muñoz", edad: 18

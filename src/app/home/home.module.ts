@@ -16,6 +16,7 @@ import { PrimetaLetraMayuscPipe } from '../pipes/primeta-letra-mayusc.pipe';
     IonicModule,
     HomePageRoutingModule
   ],
+  //Le añadimos los componentes que vamos a usar
   declarations: [HomePage, UserInfoComponent, PrimetaLetraMayuscPipe]
 })
 export class HomePageModule {}

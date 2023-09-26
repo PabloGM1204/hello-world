@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UserInfoComponent  implements OnInit {
 
-  //Atributos del modulo
+  //Atributos del modulo el cual servira para pasarlo al html pero recogerlos del home.page
   @Input() usuario?:{
     nombre?: string,
     apellidos?: string,

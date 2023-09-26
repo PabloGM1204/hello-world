@@ -15,6 +15,7 @@
 
   <!--Card de Ionic-->
   <div class="cards">
+    <!--Con lo de *ng hacemos un ForEach de los usuarios que hemos creado en home.page.ts y la etiqueta es del compoente de la tarjeta-->
     <app-user-info *ngFor="let user of usuarios" [usuario] = "user"> </app-user-info>
   </div>
 

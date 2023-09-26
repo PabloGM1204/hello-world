@@ -1,8 +1,10 @@
+<!--Creamos el componente que sirve como plantilla para ponerlo en el home.page-->
 <ion-card id="carta" routerLink="/welcome">
   <ion-item>
     <ion-avatar>
       <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
     </ion-avatar>
+    <!--Con el tema de los dobles corchetes es para que pueda coger del home.page.ts el array y el Pipe-->
     <ion-label id="nomTitlt">{{usuario?.nombre}} {{usuario?.apellidos | primetaLetraMayusc}}</ion-label>
   </ion-item>
   
