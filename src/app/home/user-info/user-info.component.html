@@ -1,19 +1,32 @@
 <!--Creamos el componente que sirve como plantilla para ponerlo en el home.page-->
-<ion-card id="carta" routerLink="/welcome">
-  <!--Imagen arriba de la carta-->
+<ion-card id="carta">
+  <!--Zona arriba de la carta-->
   <ion-item>
+    <!--Avatar-->
     <ion-avatar>
       <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
     </ion-avatar>
+
     <!--Con el tema de los dobles corchetes es para que pueda coger del home.page.ts el array y el Pipe-->
     <ion-label id="nomTitlt">{{usuario?.nombre}} {{usuario?.apellidos | primetaLetraMayusc}}</ion-label>
+
+    <!--Boton de favorito-->
+    <ion-button fill="clear" (click)="onFavClick($event)">
+      <!--En caso de ser favorito le coloreamos el corazon-->
+      <ion-icon *ngIf="usuario?.fav == true" style="color:red" name="heart" aria-hidden="true" slot="icon-only"></ion-icon>
+      <!--En caso de no ser el favorito no está coloreado-->
+      <ion-icon *ngIf="usuario?.fav == false" color="medium" name="heart-outline" aria-hidden="true" slot="icon-only"></ion-icon>
+    </ion-button>
   </ion-item>
   
   <!--Carta en si-->
-  <ion-card-title id="title">Nombre</ion-card-title>
-  <ion-card-content id="info">{{usuario?.nombre}}</ion-card-content>
-  <ion-card-title id="title">Apellidos</ion-card-title>
-  <ion-card-content id="info">{{usuario?.apellidos}}</ion-card-content>
-  <ion-card-title id="title">Edad</ion-card-title>
-  <ion-card-content id="info">{{usuario?.edad}} años</ion-card-content>
+  <div routerLink="/welcome">
+    <ion-card-title id="title">Nombre</ion-card-title>
+    <ion-card-content id="info">{{usuario?.nombre}}</ion-card-content>
+    <ion-card-title id="title">Apellidos</ion-card-title>
+    <ion-card-content id="info">{{usuario?.apellidos}}</ion-card-content>
+    <ion-card-title id="title">Edad</ion-card-title>
+    <ion-card-content id="info">{{usuario?.edad}} años</ion-card-content>
+  </div>
+
 </ion-card>
