@@ -4,6 +4,11 @@ import { User } from './home/user';
 
 // Interfaz de los métodos 
 
+// Interfaz en caso de error
+export class UserNotFoundException extends Error{
+  // Si quiero añadir cosas
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +27,7 @@ export class UserService {
   *  Métodos para manejar los usuarios
   */
 
-  // Método que recoge los usuarios (Al hacerlo sin ninguna conexión a una API usamos un array creado por nostros), devuelve
+  // Método que recoge los usuarios (Al hacerlo sin ninguna conexión a una API usamos un array creado por nostros)
   // Devuelve un observable con todos los usuarios
   public getAll(): Observable<User[]>{
     // En el mismo return creo el observable y le doy los datos
@@ -48,5 +53,48 @@ export class UserService {
     });
   }
 
-  
+  // Método que sirve para eliminar un usuario
+  // Recogemos el usuario al que antes le hemos dado click en la papelera y devolvemos un array nueva con la lista de usuarios nueva con el user elegido eliminado
+  public deleteUser(user:User): Observable<User[]>{
+    return new Observable(observer => {
+      // Copiamos el array de usuarios con los usuarios actuales
+      var _lista = [...this._user.value];
+      // Guardamos el valor del id del usuario al cual le hemos hecho click
+      var usuarioSelecionado = _lista.findIndex(u=>u.id==user.id);
+      // Si ha encontrado el usuario debe dar un 
+      if(usuarioSelecionado >= 0){
+        // Actualizo la lista con el slice para que me copie desde la lista hasta el user elegido y desde el user elegido +1 en adelante
+        _lista = [..._lista.slice(0, usuarioSelecionado),..._lista.slice(usuarioSelecionado+1)];
+        // Le paso la copia a la lusta de usuarios privada
+        this._user.next(_lista);
+        // Le paso al observable que devuelvo la nueva lista
+        observer.next(_lista);
+      }else{
+        observer.error(new UserNotFoundException);
+      }
+      // Termino el observable
+      observer.complete;
+    });
+  }
+
+  // Método para actualizar el usuario (en este caso para el favorito
+  public updateUser(user: User): Observable<User[]>{
+    return new Observable(observer => {
+      // Copiamos la lista que tenemos de usuarios
+      var _lista = [...this._user.value];
+      // Buscamos el usuario seleccionado
+      var usuarioSelecionado = _lista.findIndex(u=>u.id==user.id);
+      // Si encuentra el usuario seleccionado
+      if(usuarioSelecionado >= 0){
+        // Le añadimos el usuario a la lista
+        _lista[usuarioSelecionado] = user;
+        // Le pasamos la lista nueva tanto al observable de esta clase es decir el privado como al observer
+        this._user.next(_lista);
+        observer.next(_lista);
+      } else {
+        observer.error(new UserNotFoundException)
+      }
+      observer.complete;
+    });
+  }
 }

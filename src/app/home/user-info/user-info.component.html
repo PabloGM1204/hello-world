@@ -17,6 +17,12 @@
       <!--En caso de no ser el favorito no está coloreado-->
       <ion-icon *ngIf="usuario?.fav == false" color="medium" name="heart-outline" aria-hidden="true" slot="icon-only"></ion-icon>
     </ion-button>
+
+    <!--Boton de eliminar-->
+    <ion-button fill="clear" aria-label="Delete" (click)="deleteClick($event)">
+      <!--En caso de ser favorito le coloreamos el corazon-->
+      <ion-icon style="color:rgb(255, 255, 255)" name="trash" aria-hidden="true" slot="icon-only"></ion-icon>
+    </ion-button>
   </ion-item>
   
   <!--Carta en si-->
