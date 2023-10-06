@@ -65,7 +65,7 @@ export class UserService {
       if(usuarioSelecionado >= 0){
         // Actualizo la lista con el slice para que me copie desde la lista hasta el user elegido y desde el user elegido +1 en adelante
         _lista = [..._lista.slice(0, usuarioSelecionado),..._lista.slice(usuarioSelecionado+1)];
-        // Le paso la copia a la lusta de usuarios privada
+        // Le paso la copia a la lista de usuarios privada
         this._user.next(_lista);
         // Le paso al observable que devuelvo la nueva lista
         observer.next(_lista);
@@ -77,7 +77,7 @@ export class UserService {
     });
   }
 
-  // Método para actualizar el usuario (en este caso para el favorito
+  // Método para actualizar el usuario (en este caso para el favorito)
   public updateUser(user: User): Observable<User[]>{
     return new Observable(observer => {
       // Copiamos la lista que tenemos de usuarios

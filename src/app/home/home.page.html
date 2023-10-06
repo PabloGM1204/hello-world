@@ -15,9 +15,19 @@
 
   <!--Card de Ionic-->
   <div class="cards">
-    <!--Con lo de *ng hacemos un ForEach de los usuarios que hemos creado en user.service.ts y la etiqueta es del compoente de la tarjeta, -->
-    <app-user-info *ngFor="let user of users.user$ | async" [usuario] = "user" (onFavClicked)="onFavClicked(user, $event)" (deleteClicked)="deleteClicked(user)"> </app-user-info>
+    <!--Con lo de *ng hacemos un ForEach de los usuarios que hemos creado en user.service.ts y la etiqueta es del compoente de la tarjeta-->
+    <app-user-info *ngFor="let user of (users.user$ | async) | favs:(favs.favs$ | async)"
+    [usuario] = "user" 
+    (onFavClicked)="onFavClicked(user, $event)" 
+    (deleteClicked)="deleteClicked(user)"> 
+    </app-user-info>
   </div>
+  
+  <!--Para ver todos los favoritos-->
+  <ion-button (click)="favorites()">Ver favoritos</ion-button>
+
+  <!--Para ir a Welcome-->
+  <ion-button (click)="welcome()">Ir al welcome</ion-button>
 
   <!--Lo primero al crear una app con ionic-->
   <div id="container">
@@ -25,5 +35,6 @@
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
 
+  <!--Para esperar que cargue todo-->
   <ion-loading [isOpen]="loading" class="custom-loading" message="Loading..."></ion-loading>
 </ion-content>

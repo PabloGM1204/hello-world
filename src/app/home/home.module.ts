@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { PrimetaLetraMayuscPipe } from '../pipes/primeta-letra-mayusc.pipe';
+import { FavsPipe } from './favs.pipe';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { PrimetaLetraMayuscPipe } from '../pipes/primeta-letra-mayusc.pipe';
     HomePageRoutingModule
   ],
   //Le añadimos los componentes que vamos a usar
-  declarations: [HomePage, UserInfoComponent, PrimetaLetraMayuscPipe]
+  declarations: [HomePage, UserInfoComponent, PrimetaLetraMayuscPipe, FavsPipe]
 })
 export class HomePageModule {}

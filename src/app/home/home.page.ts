@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { UserInfoFavClicked } from './user-info/user-info-fav-clicked';
 import { UserService } from '../user.service';
+import { FavoritesService } from '../favorites.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,9 @@ export class HomePage {
 
   constructor(
     private router: Router,
-    private toast: ToastController,
-    public users: UserService // Sera la lista que usaremos desde el HTML
+    private toast: ToastController, // Mensaje que aparece abajo al hacer algo (eliminar usuario, eliminar de favoritos)
+    public users: UserService, // Sera la lista que usaremos desde el HTML
+    public favs: FavoritesService // La lista de usuarios favoritos
   ) {}
 
   public loading: boolean = true;
@@ -29,22 +31,28 @@ export class HomePage {
     this.users.getAll().subscribe(users =>{
       this.loading = false;
     });
+    
+    // Recogemos la lista de usuarios favs
+    this.favs.getAll().subscribe(favs =>{
+      this.loading = false;
+    });
   }
 
   // Método para ir a la página de Welcome
-  welcome(){
+  public welcome(){
     this.router.navigate(["./welcome"])
   }
 
-  // Recogemos el usuario seleccionado y el el fav para añadirlo o eliminarlo
+  // Método para ir a ver los favoritos
+  public favorites(){
+    this.router.navigate(["./favoritos"])
+  }
+
+  // Recogemos el usuario seleccionado y el fav para añadirlo o eliminarlo
   public onFavClicked(usuario: User, event: UserInfoFavClicked){
-    // Guardamos el usuario al que le hemos hecho click
-    var _user:User = {...usuario}
-    // El favorito del usuario le preguntamos como esta y le asignamos el valor contrario
-    _user.fav = event.fav??false;
-    // Me subscribo al metodo para cuando realice los cambios en el servicio del usuario los reciba
-    this.users.updateUser(_user).subscribe({
-      next: user => {
+    var obs = (event?.fav)?this.favs.addFav(usuario.id):this.favs.deleteFav(usuario.id);
+    obs.subscribe({
+      next:_=> {
         // Notificamos con un Toast que se ha pulsado
         const options: ToastOptions = {
           // Mensaje
@@ -58,16 +66,13 @@ export class HomePage {
           // Clase css
           cssClass: 'fav-ion-toast'
         };
+        // Creamos el toast y lo presentamos
         this.toast.create(options).then(toast=>toast.present());
       },
       error: err=>{
         console.log(err);
       }
     });
-    
-    
-
-    // Creamos el toast y lo presentamos
   }
 
   // Método para eliminar el usuario
