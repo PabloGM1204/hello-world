@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable, observeOn } from 'rxjs';
+import { BehaviorSubject, Observable, observeOn, zip } from 'rxjs';
 import { User } from './user';
 import { Router } from '@angular/router';
 import { ToastController, ToastOptions } from '@ionic/angular';
@@ -14,6 +14,8 @@ import { FavoritesService } from '../favorites.service';
 })
 export class HomePage {
 
+  public loading: boolean = false;
+
   constructor(
     private router: Router,
     private toast: ToastController, // Mensaje que aparece abajo al hacer algo (eliminar usuario, eliminar de favoritos)
@@ -21,19 +23,13 @@ export class HomePage {
     public favs: FavoritesService // La lista de usuarios favoritos
   ) {}
 
-  public loading: boolean = true;
 
   // Método de ciclo de vida que es al crear el componente
   ngOnInit(): void{
     // Para que salga que esta cargado los usuarios
     this.loading = true;
-    // Recogemos todos lo usuarios
-    this.users.getAll().subscribe(users =>{
-      this.loading = false;
-    });
-    
-    // Recogemos la lista de usuarios favs
-    this.favs.getAll().subscribe(favs =>{
+    // Recogemos todos lo usuarios y todos los favoritos
+    zip(this.users.getAll(), this.favs.getAll()).subscribe(results =>{
       this.loading = false;
     });
   }

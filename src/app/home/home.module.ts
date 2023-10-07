@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { PrimetaLetraMayuscPipe } from '../pipes/primeta-letra-mayusc.pipe';
 import { FavsPipe } from './favs.pipe';
+import { HighlightDirective } from './highlight.directive';
 
 
 @NgModule({
@@ -18,6 +19,6 @@ import { FavsPipe } from './favs.pipe';
     HomePageRoutingModule
   ],
   //Le añadimos los componentes que vamos a usar
-  declarations: [HomePage, UserInfoComponent, PrimetaLetraMayuscPipe, FavsPipe]
+  declarations: [HomePage, UserInfoComponent, PrimetaLetraMayuscPipe, FavsPipe, HighlightDirective]
 })
 export class HomePageModule {}
