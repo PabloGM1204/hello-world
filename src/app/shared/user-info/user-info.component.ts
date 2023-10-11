@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserInfoFavClicked } from './user-info-fav-clicked';
-import { User } from '../user';
+import { UserInfoFavClicked } from '../../core/interfaces/user-info-fav-clicked';
+import { User } from '../../home/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -14,10 +15,19 @@ export class UserInfoComponent  implements OnInit {
 
   @Output() onFavClicked: EventEmitter<UserInfoFavClicked> = new EventEmitter<UserInfoFavClicked>();
   @Output() deleteClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() cardClicked: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(
+    private router:Router 
+  ) { }
 
   ngOnInit() {}
+
+  // Al hacer click en la tarjeta para poder ir a welcome
+  cardClick(){
+    this.cardClicked.emit();
+    this.router.navigate(['/welcome']);
+  }
 
   // Recogemos un evento para cuando hagamos click podamos hacer lo que queramos
   onFavClick(event: any){

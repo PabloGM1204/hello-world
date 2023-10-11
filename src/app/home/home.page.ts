@@ -3,9 +3,9 @@ import { BehaviorSubject, Observable, observeOn, zip } from 'rxjs';
 import { User } from './user';
 import { Router } from '@angular/router';
 import { ToastController, ToastOptions } from '@ionic/angular';
-import { UserInfoFavClicked } from './user-info/user-info-fav-clicked';
-import { UserService } from '../user.service';
-import { FavoritesService } from '../favorites.service';
+import { UserInfoFavClicked } from '../core/interfaces/user-info-fav-clicked';
+import { UserService } from '../core/services/user.service';
+import { FavoritesService } from '../core/services/favorites.service';
 
 @Component({
   selector: 'app-home',
@@ -37,11 +37,6 @@ export class HomePage {
   // Método para ir a la página de Welcome
   public welcome(){
     this.router.navigate(["./welcome"])
-  }
-
-  // Método para ir a ver los favoritos
-  public favorites(){
-    this.router.navigate(["./favoritos"])
   }
 
   // Recogemos el usuario seleccionado y el fav para añadirlo o eliminarlo
