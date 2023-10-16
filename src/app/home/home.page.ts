@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable, observeOn, zip } from 'rxjs';
-import { User } from './user';
+import { User } from '../core/interfaces/user';
 import { Router } from '@angular/router';
-import { ToastController, ToastOptions } from '@ionic/angular';
+import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { UserInfoFavClicked } from '../core/interfaces/user-info-fav-clicked';
 import { UserService } from '../core/services/user.service';
 import { FavoritesService } from '../core/services/favorites.service';
+import { UserformComponent } from '../shared/components/userform/userform.component';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomePage {
     private router: Router,
     private toast: ToastController, // Mensaje que aparece abajo al hacer algo (eliminar usuario, eliminar de favoritos)
     public users: UserService, // Sera la lista que usaremos desde el HTML
-    public favs: FavoritesService // La lista de usuarios favoritos
+    public favs: FavoritesService, // La lista de usuarios favoritos
+    private modal: ModalController // Panel que aparece
   ) {}
 
 
@@ -93,5 +95,29 @@ export class HomePage {
         console.log(err);
       }
     });
+  }
+
+  //
+  async presentForm(onDismiss:(result:any)=> void){
+    const modal = await this.modal.create({
+      component: UserformComponent,
+      componentProps:{
+
+      },
+      cssClass:"modal-full-right-side"
+    });
+    modal.present();
+    modal.onDidDismiss().then(result => {
+      if(result && result.data){
+        onDismiss(result.data);
+      }
+    })
+  }
+
+  onNewUser(newUser: any){
+    var onDismiss = (data: any) => {
+      console.log(data);
+    }
+    this.presentForm(onDismiss);
   }
 }

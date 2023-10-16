@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../../home/user';
+import { User } from '../interfaces/user';
 
 // Interfaz de los métodos 
 

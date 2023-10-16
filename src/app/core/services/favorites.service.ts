@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Fav } from '../interfaces/fav';
-import { User } from '../../home/user';
+import { User } from '../interfaces/user';
 
 // Interfaz de errores
 export class FavNotFoundException extends Error{

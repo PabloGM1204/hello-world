@@ -26,6 +26,9 @@
 
   <!--Para ir a Welcome-->
   <ion-button (click)="welcome()">Ir al welcome</ion-button>
+  <ion-button fill="clear" aria-label="New User" (click)="onNewUser($event)">
+    <ion-icon slot="icon-only"  color="primary"  name="add-outline" aria-hidden="true"></ion-icon>
+  </ion-button>
 
   <!--Lo primero al crear una app con ionic-->
   <div id="container">
