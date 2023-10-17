@@ -15,11 +15,13 @@ export class UserNotFoundException extends Error{
 
 // Servicio que vamos a usar para consultar o hacer cosas con los usuarios
 export class UserService {
-  
+
+  // Para guardar el id
+  id: number = 0;
   // Creamos un BehaviorSubjetct que recibo un tipo generico que en este caso es un array de tipo Usuario y creamos el objeto de ese tipo pero con el array vacio, esta variable recoge de forma privada y lo pasa a _user$
-  private _user: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
+  private _user: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   // Creamos un observable que behaviour lo convirtamos a observable, para que desde la plantilla no podamos meter datos
-  user$: Observable<User[]> = this._user.asObservable()
+  user$: Observable<User[]> = this._user.asObservable();
 
   constructor() { }
 
@@ -42,6 +44,7 @@ export class UserService {
           {id: 4,nombre: "Antonio J.", apellidos: "Muñoz Perez", edad: 22, fav: false},
           {id: 5,nombre: "Ana M.", apellidos: "Santos Fernandez", edad: 30, fav: true}
         ];
+        this.id = usuarios.length
         // Guardo en mi variable privada dentro de la clase todos los usuarios
         this._user.next(usuarios);
         // Tambien lo guardo en el observable que devuelvo
@@ -51,6 +54,18 @@ export class UserService {
         // Espero 1 s para hacerlo realista
       }, 1000 );
     });
+  }
+
+  // Método para añadir un usuario
+  // Tomo el usuario seleccionado y devuelvo la lista e usuarios actualizada con el nuevo usuario dentro
+  public addUser(user:User): Observable<User>{
+    return new Observable(observer => {
+      var _users = [...this._user.value]
+      user.id = ++this.id;
+      _users.push(user);
+      this._user.next(_users);
+      observer.next(user);
+    })
   }
 
   // Método que sirve para eliminar un usuario

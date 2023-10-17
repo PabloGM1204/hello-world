@@ -16,9 +16,10 @@
   <!--Card de Ionic-->
   <div class="cards">
     <!--Con lo de *ng hacemos un ForEach de los usuarios que hemos creado en user.service.ts y la etiqueta es del compoente de la tarjeta-->
-    <app-user-info *ngFor="let user of (users.user$ | async) | favs:(favs.favs$ | async)"
+    <app-user-info *ngFor="let user of (users.user$ | async) | favs:(favs.favs$ | async); let i = index"
     appHighlight
-    [usuario] = "user" 
+    [usuario] = "user"
+    (onCardClicked)="onCardClicked(user)"
     (onFavClicked)="onFavClicked(user, $event)" 
     (deleteClicked)="deleteClicked(user)"> 
     </app-user-info>
@@ -26,15 +27,10 @@
 
   <!--Para ir a Welcome-->
   <ion-button (click)="welcome()">Ir al welcome</ion-button>
-  <ion-button fill="clear" aria-label="New User" (click)="onNewUser($event)">
+  <!--Para  que salga el boton de añadir usuario y aparezca el modal-->
+  <ion-button fill="clear" aria-label="New User" (click)="onNewUser()">
     <ion-icon slot="icon-only"  color="primary"  name="add-outline" aria-hidden="true"></ion-icon>
   </ion-button>
-
-  <!--Lo primero al crear una app con ionic-->
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
 
   <!--Para esperar que cargue todo-->
   <ion-loading [isOpen]="loading" class="custom-loading" message="Loading..."></ion-loading>

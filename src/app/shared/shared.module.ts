@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { PrimetaLetraMayuscPipe } from './pipes/primeta-letra-mayusc.pipe';
 import { FavsPipe } from './pipes/favs.pipe';
 import { FormsModule } from '@angular/forms';
-import { UserformComponent } from './components/userform/userform.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 
 
@@ -14,11 +14,11 @@ import { UserformComponent } from './components/userform/userform.component';
   declarations: [
     // Componentes
     UserInfoComponent, 
-    UserformComponent,
+    UserDetailComponent,
     // Directivas
     HighlightDirective, 
     // Pipes
-    PrimetaLetraMayuscPipe, 
+    PrimetaLetraMayuscPipe,
     FavsPipe,
   ],
   imports: [
@@ -30,7 +30,7 @@ import { UserformComponent } from './components/userform/userform.component';
   exports: [
     // Componentes
     UserInfoComponent,
-    UserformComponent,
+    UserDetailComponent,
     // Directivas
     HighlightDirective,
     // Modulos

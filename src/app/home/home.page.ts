@@ -6,7 +6,7 @@ import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { UserInfoFavClicked } from '../core/interfaces/user-info-fav-clicked';
 import { UserService } from '../core/services/user.service';
 import { FavoritesService } from '../core/services/favorites.service';
-import { UserformComponent } from '../shared/components/userform/userform.component';
+import { UserDetailComponent } from '../shared/components/user-detail/user-detail.component';
 
 @Component({
   selector: 'app-home',
@@ -97,27 +97,88 @@ export class HomePage {
     });
   }
 
-  //
-  async presentForm(onDismiss:(result:any)=> void){
-    const modal = await this.modal.create({
-      component: UserformComponent,
-      componentProps:{
+  // Para cuando le demos click en la carta
+  public async onCardClicked(user:User){
+    var onDismiss = (info:any) => {
+      console.log(info);
+      switch(info.role){
+        case 'ok': {
+          this.users.updateUser(info.data).subscribe(async user=>{
+            const options:ToastOptions = {
+              message: "User modified",
+              duration:1000,
+              position:'bottom',
+              color:'tertiary',
+              cssClass: 'card-ion-toast'
+            };
+            const toast = await this.toast.create(options);
+            toast.present();
+          })
+        }
+        break;
+        case 'delete':{
+          this.users.deleteUser(info.data).subscribe(async user=>{
+            const options:ToastOptions = {
+              message: "User deleted",
+              duration:1000,
+              position:'bottom',
+              color:'tertiary',
+              cssClass: 'card-ion-toast'
+            };
+            const toast = await this.toast.create(options);
+            toast.present();
+          })
+        }
+        break;
+        default:{
+          console.error("Error");
+        }
 
+      }
+    }
+    this.presentForm(user, onDismiss);
+  }
+
+  //
+  async presentForm(data:User | null ,onDismiss:(result:any)=> void){
+    const modal = await this.modal.create({
+      component: UserDetailComponent,
+      componentProps:{
+        user:data
       },
       cssClass:"modal-full-right-side"
     });
     modal.present();
     modal.onDidDismiss().then(result => {
       if(result && result.data){
-        onDismiss(result.data);
+        onDismiss(result);
       }
     })
   }
 
-  onNewUser(newUser: any){
+  onNewUser(){
     var onDismiss = (data: any) => {
       console.log(data);
+      switch(data.role){
+        case 'ok':{
+          this.users.addUser(data.data).subscribe(async user => {
+            const options:ToastOptions = {
+              message: "User deleted",
+              duration:1000,
+              position:'bottom',
+              color:'tertiary',
+              cssClass: 'card-ion-toast'
+            };
+            const toast = await this.toast.create(options);
+            toast.present();
+          })
+        }
+        break;
+        default:{
+          console.error("Error")
+        }
+      }
     }
-    this.presentForm(onDismiss);
+    this.presentForm(null, onDismiss);
   }
 }

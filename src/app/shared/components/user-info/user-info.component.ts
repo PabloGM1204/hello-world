@@ -26,7 +26,6 @@ export class UserInfoComponent  implements OnInit {
   // Al hacer click en la tarjeta para poder ir a welcome
   cardClick(){
     this.cardClicked.emit();
-    this.router.navigate(['/welcome']);
   }
 
   // Recogemos un evento para cuando hagamos click podamos hacer lo que queramos
