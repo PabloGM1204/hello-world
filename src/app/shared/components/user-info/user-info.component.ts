@@ -15,7 +15,7 @@ export class UserInfoComponent  implements OnInit {
 
   @Output() onFavClicked: EventEmitter<UserInfoFavClicked> = new EventEmitter<UserInfoFavClicked>();
   @Output() deleteClicked: EventEmitter<void> = new EventEmitter<void>();
-  @Output() cardClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onCardClicked:EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private router:Router 
@@ -25,7 +25,7 @@ export class UserInfoComponent  implements OnInit {
 
   // Al hacer click en la tarjeta para poder ir a welcome
   cardClick(){
-    this.cardClicked.emit();
+    this.onCardClicked.emit();
   }
 
   // Recogemos un evento para cuando hagamos click podamos hacer lo que queramos

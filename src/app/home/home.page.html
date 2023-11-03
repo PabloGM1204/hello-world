@@ -16,12 +16,13 @@
   <!--Card de Ionic-->
   <div class="cards">
     <!--Con lo de *ng hacemos un ForEach de los usuarios que hemos creado en user.service.ts y la etiqueta es del compoente de la tarjeta-->
-    <app-user-info *ngFor="let user of (users.user$ | async) | favs:(favs.favs$ | async); let i = index"
-    appHighlight
-    [usuario] = "user"
+    <app-user-info 
+    appHighlight 
+    *ngFor="let user of ((users.users$ | async) | favs:(favs.favs$ | async)); let i = index"
+    [usuario]="user"
     (onCardClicked)="onCardClicked(user)"
     (onFavClicked)="onFavClicked(user, $event)" 
-    (deleteClicked)="deleteClicked(user)"> 
+    (deleteClicked)="onDeleteClicked(user)"> 
     </app-user-info>
   </div>
 

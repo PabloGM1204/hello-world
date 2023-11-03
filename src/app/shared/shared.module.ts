@@ -5,7 +5,7 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { IonicModule } from '@ionic/angular';
 import { PrimetaLetraMayuscPipe } from './pipes/primeta-letra-mayusc.pipe';
 import { FavsPipe } from './pipes/favs.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 
@@ -25,7 +25,8 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     // Modulos
     CommonModule,
     IonicModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     // Componentes
@@ -37,6 +38,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     CommonModule,
     IonicModule,
     FormsModule,
+    ReactiveFormsModule,
     // Pipes
     FavsPipe,
     PrimetaLetraMayuscPipe,

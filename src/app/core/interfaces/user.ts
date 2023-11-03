@@ -1,7 +1,7 @@
 export interface User {
     id: number,
-    nombre: string,
-    apellidos: string,
-    edad: number,
+    name: string,
+    surname: string,
+    age: number,
     fav: boolean
 }

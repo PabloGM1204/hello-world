@@ -8,7 +8,7 @@
     </ion-avatar>
 
     <!--Con el tema de los dobles corchetes es para que pueda coger del home.page.ts el array y el Pipe-->
-    <ion-label id="nomTitlt">{{usuario?.nombre}} {{usuario?.apellidos | primetaLetraMayusc}}</ion-label>
+    <ion-label id="nomTitlt">{{usuario?.name}} {{usuario?.surname | primetaLetraMayusc}}</ion-label>
 
     <!--Boton de favorito-->
     <ion-button fill="clear" (click)="onFavClick($event)">
@@ -28,11 +28,11 @@
   <!--Carta en si-->
   <div routerLink="/welcome">
     <ion-card-title id="title">Nombre</ion-card-title>
-    <ion-card-content id="info">{{usuario?.nombre}}</ion-card-content>
+    <ion-card-content id="info">{{usuario?.name}}</ion-card-content>
     <ion-card-title id="title">Apellidos</ion-card-title>
-    <ion-card-content id="info">{{usuario?.apellidos}}</ion-card-content>
+    <ion-card-content id="info">{{usuario?.surname}}</ion-card-content>
     <ion-card-title id="title">Edad</ion-card-title>
-    <ion-card-content id="info">{{usuario?.edad}} años</ion-card-content>
+    <ion-card-content id="info">{{usuario?.age}} años</ion-card-content>
   </div>
 
 </ion-card>

@@ -16,9 +16,9 @@ export class UserDetailComponent  implements OnInit {
     if(_user){
       this.mode = 'Edit';
       this.form.controls['id'].setValue(_user.id);
-      this.form.controls['name'].setValue(_user.nombre);
-      this.form.controls['surname'].setValue(_user.apellidos);
-      this.form.controls['age'].setValue(_user.edad);
+      this.form.controls['name'].setValue(_user.name);
+      this.form.controls['surname'].setValue(_user.surname);
+      this.form.controls['age'].setValue(_user.age);
     }
   }
   constructor(

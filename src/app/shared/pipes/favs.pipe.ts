@@ -14,9 +14,9 @@ export class FavsPipe implements PipeTransform {
     _users = _users.map(u => {
       return {
         id: u.id,
-        nombre: u.nombre,
-        apellidos: u.apellidos,
-        edad: u.edad,
+        name: u.name,
+        surname: u.surname,
+        age: u.age,
         fav: favs?.reduce((p, f) => p || f.userId==u.id, false)??false // Va usuario por usuario para coger el fav y preguntar y en el caso de encontrar el cambiado lo actualiza
       }
     });
