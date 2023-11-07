@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
 import { User } from '../interfaces/user';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 // Interfaz de los métodos 
 
@@ -18,12 +20,23 @@ export class UserService {
   private _users:BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   public users$:Observable<User[]> = this._users.asObservable();
   
-  constructor() { 
+  constructor(
+    private http:HttpClient
+  ) { 
 
   }
 
   public addUser(user:User):Observable<User>{
-    return new Observable<User>(observer=>{
+    var _user:any = {
+      name: user.name,
+      surname: user.surname,
+      age: user.age
+    }
+
+    return this.http.post<User>(environment.apiUrl+"/users",_user).pipe(tap(_=>{
+      this.getAll().subscribe();
+    }))
+    /*return new Observable<User>(observer=>{
       setTimeout(() => {
         var _users = [...this._users.value];
         user.id = ++this.id;
@@ -32,9 +45,14 @@ export class UserService {
         observer.next(user);
       }, 1000);
     })
+    */
   }
 
   public getAll():Observable<User[]>{
+    // Si coincide el tipo de datos que recibo con mi interfaz
+    return this.http.get<User[]>(environment.apiUrl+'/users').pipe(tap((users:any[])=>{
+      this._users.next(users);}));
+    /*
     return new Observable(observer=>{
       setTimeout(() => {
         var users:User[] = [
@@ -51,10 +69,13 @@ export class UserService {
       }, 1000);
       
     });
+    */
     
   }
 
   public getUser(id:number):Observable<User>{
+    return this.http.get<User>(environment.apiUrl+`/users/${id}`);
+    /*
     return new Observable(observer=>{
       setTimeout(() => {
         var user = this._users.value.find(user=>user.id==id);
@@ -66,10 +87,19 @@ export class UserService {
       }, 1000);
       
     })
+    */
     
   }
 
   public updateUser(user:User):Observable<User>{
+    return new Observable<User>(obs=>{
+      this.http.patch<User>(environment.apiUrl+`/users/${user.id}`,user).subscribe(_=>{
+          this.getAll().subscribe(_=>{
+            this.getUser(user.id).subscribe(_user=>{
+              obs.next(_user);
+            })
+          })})});
+    /*
     return new Observable(observer=>{
       setTimeout(() => {
         var _users = [...this._users.value];
@@ -85,10 +115,17 @@ export class UserService {
       }, 500);
       
     });
+    */
     
   }
 
   public deleteUser(user:User):Observable<User>{
+    return new Observable<User>(obs=>{
+      this.http.delete<User>(environment.apiUrl+`/users/${user.id}`).subscribe(_=>{
+          this.getAll().subscribe(_=>{
+            obs.next(user);
+          })})});
+    /*
     return new Observable(observer=>{
       setTimeout(() => {
         var _users = [...this._users.value];
@@ -104,6 +141,7 @@ export class UserService {
       }, 500);
       
     });
+    */
   }
 
   public deleteAll():Observable<void>{
