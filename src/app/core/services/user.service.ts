@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
 import { User } from '../interfaces/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 // Interfaz de los métodos 
@@ -24,6 +24,11 @@ export class UserService {
     private http:HttpClient
   ) { 
 
+  }
+
+  getJwtToken(){
+    localStorage.setItem('jwt', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjk5MDM3MTQ5LCJleHAiOjE3MDE2MjkxNDl9.NvApkrRe3pDRKa4vv43taSBo8JXm2Cf7jaZTN3v8VC8')
+    return localStorage.getItem('jwt')
   }
 
   public addUser(user:User):Observable<User>{
@@ -49,10 +54,11 @@ export class UserService {
   }
 
   public getAll():Observable<User[]>{
-    // Si coincide el tipo de datos que recibo con mi interfaz
-    return this.http.get<User[]>(environment.apiUrl+'/users').pipe(tap((users:any[])=>{
+    let headers = new HttpHeaders({'Authorization': `Bearer ${this.getJwtToken()}`});
+    /*// Si coincide el tipo de datos que recibo con mi interfaz
+    return this.http.get<User[]>(environment.apiUrl+'/api/users/?fields[0]=name&fields[1]=surname&fields[2]=age&fields[3]=fav', {headers:headers}).pipe(tap((users:any[])=>{
       this._users.next(users);}));
-    /*
+      */
     return new Observable(observer=>{
       setTimeout(() => {
         var users:User[] = [
@@ -69,8 +75,6 @@ export class UserService {
       }, 1000);
       
     });
-    */
-    
   }
 
   public getUser(id:number):Observable<User>{

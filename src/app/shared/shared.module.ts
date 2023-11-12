@@ -7,6 +7,8 @@ import { PrimetaLetraMayuscPipe } from './pipes/primeta-letra-mayusc.pipe';
 import { FavsPipe } from './pipes/favs.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,23 +17,26 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     // Componentes
     UserInfoComponent, 
     UserDetailComponent,
+    LoginFormComponent,
     // Directivas
     HighlightDirective, 
     // Pipes
     PrimetaLetraMayuscPipe,
-    FavsPipe,
+    FavsPipe
   ],
   imports: [
     // Modulos
     CommonModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     // Componentes
     UserInfoComponent,
     UserDetailComponent,
+    LoginFormComponent,
     // Directivas
     HighlightDirective,
     // Modulos

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable, observeOn, zip } from 'rxjs';
-import { User } from '../core/interfaces/user';
+import { User } from '../../core/interfaces/user';
 import { Router } from '@angular/router';
 import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
-import { UserInfoFavClicked } from '../core/interfaces/user-info-fav-clicked';
-import { UserService } from '../core/services/user.service';
-import { FavoritesService } from '../core/services/favorites.service';
-import { UserDetailComponent } from '../shared/components/user-detail/user-detail.component';
+import { UserInfoFavClicked } from '../../core/interfaces/user-info-fav-clicked';
+import { UserService } from '../../core/services/user.service';
+import { FavoritesService } from '../../core/services/favorites.service';
+import { UserDetailComponent } from '../../shared/components/user-detail/user-detail.component';
 
 @Component({
   selector: 'app-home',
