@@ -14,21 +14,21 @@ export class JwtService {
 
   loadToken(): Observable<JwtToken>{
     return new Observable<JwtToken>(observer => {
-      Preferences.get({key:'jwtToken'}).then((ret:any)=>{
-        if(ret['value']) {
+      Preferences.get({key:'jwtToken'}).then((ret:any) => {
+        if (ret['value']) {
           this.token = JSON.parse(ret.value);
-          if(this.token == '' || this.token == null){
+          if(this.token == '' || this.token == null)
             observer.next('');
-          } else {
-            observer.next(this.token)
-            observer.complete();
-          }
-        } else {
+          else 
+            observer.next(this.token);
+          observer.complete();
+        }
+        else {
           observer.next('');
           observer.complete();
         }
-      }).catch((error: any) => observer.next(error));
-    })
+      }).catch((error:any) => observer.next(error));
+    });
   }
 
   getToken(): JwtToken {
@@ -51,6 +51,7 @@ export class JwtService {
   }
 
   destroyToken(): Observable<JwtToken>{
+    console.log(this.token)
     this.token = ""
     return this.saveToken(this.token);
   }

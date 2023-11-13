@@ -23,6 +23,7 @@ export class AuthStrapiService extends AuthService {
 
   private init(){
     this.jwtSvc.loadToken().subscribe(_=>{
+      console.log(this._logged.value)
       this._logged.next(true);
     })
   }
@@ -37,6 +38,7 @@ export class AuthStrapiService extends AuthService {
         next:async (data:StrapiLoginResponse)=>{
           await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
           let connected = data && data.jwt!='';
+          console.log(connected)
           this._logged.next(connected);
           obs.next();
           obs.complete();
