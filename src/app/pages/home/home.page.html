@@ -32,6 +32,9 @@
   <ion-button fill="clear" aria-label="New User" (click)="onNewUser()">
     <ion-icon slot="icon-only"  color="primary"  name="add-outline" aria-hidden="true"></ion-icon>
   </ion-button>
+  <ion-button  aria-label="Log out" (click)="logOut()">
+    <ion-icon slot="icon-only" color="red" name="cross" aria-hidden="true"></ion-icon>
+  </ion-button>
 
   <!--Para esperar que cargue todo-->
   <ion-loading [isOpen]="loading" class="custom-loading" message="Loading..."></ion-loading>

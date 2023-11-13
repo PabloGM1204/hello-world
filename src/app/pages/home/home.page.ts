@@ -7,6 +7,7 @@ import { UserInfoFavClicked } from '../../core/interfaces/user-info-fav-clicked'
 import { UserService } from '../../core/services/user.service';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { UserDetailComponent } from '../../shared/components/user-detail/user-detail.component';
+import { JwtService } from 'src/app/core/services/jwt.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomePage {
     private toast:ToastController,
     public users:UserService,
     public favs:FavoritesService,
-    private modal:ModalController
+    private modal:ModalController,
+    private jwtSer: JwtService
   ) {
   }
 
@@ -160,6 +162,10 @@ export class HomePage {
       }
     }
     this.presentForm(null, onDismiss);
+  }
+
+  logOut(){
+    this.jwtSer.destroyToken();
   }
   
 

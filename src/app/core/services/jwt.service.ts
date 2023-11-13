@@ -18,13 +18,14 @@ export class JwtService {
         if(ret['value']) {
           this.token = JSON.parse(ret.value);
           if(this.token == '' || this.token == null){
-            observer.error('No token');
+            observer.next('');
           } else {
             observer.next(this.token)
             observer.complete();
           }
         } else {
-          observer.error('No token');
+          observer.next('');
+          observer.complete();
         }
       }).catch((error: any) => observer.next(error));
     })

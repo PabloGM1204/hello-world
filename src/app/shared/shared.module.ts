@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RouterModule } from '@angular/router';
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { createTranslateLoader } from '../core/translate/translate';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -30,7 +33,14 @@ import { RouterModule } from '@angular/router';
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
   ],
   exports: [
     // Componentes
@@ -44,6 +54,7 @@ import { RouterModule } from '@angular/router';
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
+    TranslateModule,
     // Pipes
     FavsPipe,
     PrimetaLetraMayuscPipe,
